@@ -12,8 +12,6 @@
 
 'use strict'
 
-var App = App || {};
-
 App.Editor = Backbone.View.extend({
 
   el: '.container',
@@ -150,7 +148,10 @@ App.Editor = Backbone.View.extend({
 // MENU event //
   esportaJSON: function(name) {
     let download = document.createElement('a');
-    download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.drop.getGraph().toJSON())));
+    //
+    var Graph = this.drop.getGraph();
+    let data = name + '\n' + JSON.stringify(this.entities) + '\n' + JSON.stringify(Graph.toJSON());
+    download.setAttribute('href', 'data:text/plain;charset=utf-8,' + data);
     let nameProject = name + '.json';
     download.setAttribute('download', nameProject);
     download.style.display = 'none';
@@ -189,15 +190,16 @@ App.Editor = Backbone.View.extend({
 
     var Graph = this.drop.getGraph();
   // ZIP //
-    let data = {
+    /*let data = {
         'name': name,
-        'entities': JSON.stringify(this.entities),
-        'graph': JSON.stringify(Graph.toJSON()),
-    };
+        'entities': encodeURIComponent(JSON.stringify(this.entities)),
+        'graph': encodeURIComponent(JSON.stringify(Graph.toJSON())),
+    };*/
+    let data = name + '\n' + JSON.stringify(this.entities) + '\n' + JSON.stringify(Graph.toJSON());
     let zip = document.createElement('input');
     zip.type = 'hidden';
     zip.name = 'zip';
-    zip.value = JSON.stringify(data);
+    zip.value = data;
     form.appendChild(zip);
 
 // Form submit //
