@@ -73,12 +73,9 @@ App.Index = Backbone.View.extend({
       let r = new FileReader();
       r.onload = function(event){
           var lines = event.target.result.split('\n');
-          console.log(lines[1]);
-          //var dati = JSON.parse(event.target.result);
           var dati = JSON.parse(lines[2]);
-          view.trigger('saveP', name, dati);
-          App.Editor.entities=JSON.parse(lines[1]);
-          console.log('inserisci fields');
+          var ent=JSON.parse(lines[1]);
+          view.trigger('saveP', name, dati, ent);
       };
       r.readAsText(file);
       Backbone.history.navigate('editor/' + name, {trigger: true});
