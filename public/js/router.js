@@ -30,10 +30,11 @@ App.Router = Backbone.Router.extend({
 
     },
 
-    editor: function(name, dati) {
+    editor: function(name, dati, attr) {
 
       let editor = new App.Editor(name, dati);
-      if(dati){ editor.loadDati(dati); }
+      if(dati){ editor.loadDati(dati, attr);
+         }
       else{ console.log('Editor!'); }
 
     },
