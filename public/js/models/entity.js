@@ -29,7 +29,7 @@ App.Entity = Backbone.Model.extend({
   /* permette di ottenere il JSON anche della collection attr */
       debugger;
       if (_.has(response, "attr")) {
-          let aux = new new App.Fields(response.attr);
+          let aux = new App.Fields(response.attr);
           this.set('attr', aux);
           delete response.attr;
       }
