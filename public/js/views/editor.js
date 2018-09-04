@@ -54,7 +54,7 @@ App.Editor = Backbone.View.extend({
     return this.$el;
   },
 
-  loadDati: function(dati) {
+  loadDati: function(dati, attr) {
     let graph = this.drop.getGraph();
     graph.fromJSON(dati);
 
@@ -70,6 +70,20 @@ App.Editor = Backbone.View.extend({
         this.entities.add(aux);
         this.counter++;
       }
+    });
+    attr.forEach( (el) => {
+      let entity=this.entities.findWhere({name:el.name});
+      let attrs = entity.get('attr');
+      el.attr.forEach( (attribute) =>{
+        let field=new App.Field();
+        field.setScope(attribute.scope);
+        field.setArray(attribute.array);
+        field.setType(attribute.type);
+        field.setName(attribute.name);
+        field.setPK(attribute.primaryKey);
+        attrs.add(field);
+      });
+      entity.set('attr', attrs);
     });
   },
 
