@@ -66,7 +66,7 @@ module.exports = class XMLGenerator {
         this.code += ('<hibernate-mapping>\n \n');
           for (let i = 0; i < data.length; i++) {
               let entity = data[i];
-              this.code += ('<class name="javax.persistence" table="');
+              this.code += ('<class name="com.javax.persistence.Diagram" table="');
               this.code += entity.name;
               this.code += ('"> \n');
               let Prim=false;
