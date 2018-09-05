@@ -30,11 +30,13 @@ module.exports = class ApplicationController {
       //console.log(data);
 
       let javaCode = this.java.generate(data);
-      let xmlCode = this.xml.generate(data);
+      let xmlConfig = this.xml.generateConfig(data);
+      let xmlCode = this.xml.generateCode(data);
 
       return {
           'java': javaCode,
-          'xml': xmlCode,
+          'xmlConfig': xmlConfig,
+          'xmlCode': xmlCode,
       };
     }
 
