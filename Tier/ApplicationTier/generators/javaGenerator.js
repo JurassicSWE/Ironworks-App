@@ -21,7 +21,8 @@ module.exports = class JavaGenerator {
     generate(data) {
         if(data.length > 0) {
 
-          this.code += ('import com.javax.persistence.*;\n\n');
+          this.code += ('package com.javax.persistence;\n\n');
+          this.code += ('import import javax.xml.crypto.Data;\n\n');
 
           for (let i = 0; i < data.length; i++) {
               let entity = data[i];
@@ -67,17 +68,21 @@ module.exports = class JavaGenerator {
     }
 
     newField(scope, array, type, name, primaryKey) {
+        if(array==='true'){
+            type=type + '[]';
+        }
         if(primaryKey === 'true'){
             this.code += ('   @Id\n');
         }
         this.code += ('   @Column(name = "' + name + '")\n');
 
         this.code += ('   ' + scope + ' ' + type + ' ' + name);
-        if(array === 'true'){
+        /*if(array === 'true'){
           this.code += ('[];\n\n');
         }else{
           this.code += (';\n\n');
-        }
+        }*/
+        this.code += (';\n\n');
         this.metodi += ('   ' + type + ' get' + name.substring(0,1).toUpperCase() + name.substring(1) + '() {return ' + name + ';}\n');
         this.metodi += ('   void set' + name.substring(0,1).toUpperCase() + name.substring(1) + '(' + type + ' ' + name + ') {this.' + name + ' = ' + name + ';}\n\n');
     }

@@ -60,7 +60,7 @@ module.exports = class Presentation {
       zip.append(data['java'], {name: req.body.name + '.' + 'java'});
       zip.append(data['xmlConfig'], {name: 'hibernate.cfg' + '.' + 'xml'});
       zip.append(data['xmlCode'], {name: 'diagram.hbm' + '.' + 'xml'});
-      zip.append(data['javaMain'], {name: 'StorageData' + '.' + 'java'});
+      zip.append(data['javaMain'], {name: 'StoreData' + '.' + 'java'});
 
       zip.append(req.body.zip, {name: req.body.name + '.json'});
       zip.finalize();
