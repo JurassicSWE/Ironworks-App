@@ -3,6 +3,7 @@
 module.exports = class sqlGenerator {
   constructor() {
     this.code = '';
+    this.array = '';
   }
 
   generate(data) {
@@ -20,6 +21,8 @@ module.exports = class sqlGenerator {
               let pk = false;
               for(let i = 0; i < entity.attr.length; i++) {
                   let attribute = entity.attr[i];
+                  if(attribute.array === 'true')
+                    attribute.type= 'Array';
                   this.newField(
                       attribute.name,
                       attribute.type,
@@ -39,7 +42,7 @@ module.exports = class sqlGenerator {
             else {
               this.code += ('id INT AUTO_INCREMENT PRIMARY KEY \n');
             }
-            this.code += (')\n\n');
+            this.code += (');\n\n');
         }
 
         let aux = this.code;
@@ -53,7 +56,6 @@ module.exports = class sqlGenerator {
   }
 
   newField(name, type,  primaryKey) {
-
       this.code += (name + ' ');
       if(type === 'String')
       this.code += ('VARCHAR(30) ');
@@ -65,6 +67,8 @@ module.exports = class sqlGenerator {
       this.code += ('DATE ');
       if(type === 'Boolean')
       this.code += ('BOOLEAN ');
+      if(type === 'Array')
+      this.code += ('TEXT ');
       if(primaryKey === 'true'){
           this.code += (' PRIMARY KEY');
       }
