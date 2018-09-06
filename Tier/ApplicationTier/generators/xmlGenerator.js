@@ -26,6 +26,9 @@ module.exports = class XMLGenerator {
         this.code += ('<hibernate-configuration>\n');
         this.code += ('   <session-factory>\n\n');
 
+		this.code += ('      <property name="hbm2ddl.auto">\n');
+		this.code += ('          update');
+		this.code += ('      </property>\n\n');
         this.code += ('      <property name="dialect">\n');
         this.code += ('          org.hibernate.dialect.MySQLDialect\n');
         this.code += ('      </property>\n\n');
@@ -35,7 +38,7 @@ module.exports = class XMLGenerator {
         this.code += ('      </property>\n\n');
 
         this.code += ('      <property name="connection.url">\n');
-        this.code += ('          jdbc:mysql://localhost/ironworks\n');
+        this.code += ('          jdbc:mysql://localhost:80/ironworks\n');
         this.code += ('      </property>\n\n');
 
         this.code += ('      <property name="connection.username">\n');
@@ -46,7 +49,7 @@ module.exports = class XMLGenerator {
         this.code += ('          ironworks\n');
         this.code += ('      </property>\n\n');
 
-        this.code += ('<mapping resource="diagram.hbm.xml"/>  \n')
+        this.code += ('      <mapping resource="diagram.hbm.xml"/>\n\n')
 
         this.code += ('   </session-factory>\n');
         this.code += ('</hibernate-configuration>\n');
@@ -66,9 +69,11 @@ module.exports = class XMLGenerator {
         this.code += ('<hibernate-mapping>\n \n');
           for (let i = 0; i < data.length; i++) {
               let entity = data[i];
-              this.code += ('<class name="com.javax.persistence.Diagram" table="');
+              this.code += ('<class name="com.jurassicswe.ironworks.diagram.');
+			  this.code += entity.name;
+			  this.code += ('" table="');
               this.code += entity.name;
-              this.code += ('"> \n');
+              this.code += ('">\n');
               let Prim=false;
               let attrs=entity.attr;
               if(attrs.length > 0) {
@@ -76,22 +81,22 @@ module.exports = class XMLGenerator {
                   let attribute=attrs[i];
                   if(attribute.primaryKey=='true'){
                     Prim=true;
-                    this.code += ('<id name="');
+                    this.code += ('\t<id name="');
                     this.code += attribute.name;
-                    this.code += ('"></id> \n');
+                    this.code += ('"></id>\n');
                   }else{
-                    this.code += ('<property name="');
+                    this.code += ('\t<property name="');
                     this.code += attribute.name;
-                    this.code += ('"></property> \n');
+                    this.code += ('"></property>\n');
                   }
                 }
                 if(!Prim){
-                  this.code += ('<id name="id"> <generator class="assigned"></generator> </id> \n ');
+                  this.code += ('\t<id name="id">\n\t\t<generator class="assigned"></generator>\n\t</id>\n');
                 }
               }
-              this.code += ('</class> \n \n');
+              this.code += ('</class>\n\n');
           }
-          this.code += ('</hibernate-mapping>\n \n');
+          this.code += ('</hibernate-mapping>');
           let aux = this.code;
           this.code = '';
           return aux;

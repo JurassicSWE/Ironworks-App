@@ -21,8 +21,19 @@ module.exports = class JavaGenerator {
     generate(data) {
         if(data.length > 0) {
 
-          this.code += ('package com.javax.persistence;\n\n');
-          this.code += ('import import javax.xml.crypto.Data;\n\n');
+          //this.code += ('package com.javax.persistence;\n\n');
+		  this.code += ('package com.jurassicswe.ironworks;\n\n');
+          //this.code += ('import javax.xml.crypto.Data;\n\n');
+		  
+		  this.code += ('import java.io.Serializable;\n');
+		  this.code += ('import javax.persistence.*;\n\n');
+		  /*
+		  this.code += ('import javax.persistence.Column;\n');
+		  this.code += ('import javax.persistence.Entity;\n');
+		  this.code += ('import javax.persistence.GeneratedValue;\n');
+		  this.code += ('import javax.persistence.Id;\n');
+		  this.code += ('import javax.persistence.Table;\n\n');
+		  */
 
           for (let i = 0; i < data.length; i++) {
               let entity = data[i];
@@ -89,9 +100,14 @@ module.exports = class JavaGenerator {
 
     generateMain(data) {
 
-          this.code += ('package com.javax.persistence;\n\n');
+          //this.code += ('package com.javax.persistence;\n\n');
+		  this.code += ('package com.jurassicswe.ironworks;\n\n');
 
-          this.code += ('import org.hibernate.Session;\nimport org.hibernate.SessionFactory;\nimport org.hibernate.Transaction;\nimport org.hibernate.cfg.Configuration;\n\n');
+          this.code += ('import org.hibernate.Session;\n');
+          this.code += ('import org.hibernate.SessionFactory;\n');
+          this.code += ('import org.hibernate.Transaction;\n');
+          this.code += ('import org.hibernate.cfg.Configuration;\n\n');
+		  
           this.code += ('public class StoreData {\n\tpublic static void main(String[] args) {\n');
           this.code += ('\n\t\tConfiguration cfg=new Configuration(); \n');
           this.code += ('\t\tcfg.configure("hibernate.cfg.xml");\n');
