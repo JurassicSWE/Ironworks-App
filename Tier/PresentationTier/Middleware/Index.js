@@ -54,9 +54,15 @@ module.exports = class Presentation {
       let zip = archiver('zip');
       res.header('Content-Disposition', 'attachment; filename="' + req.body.name + '.zip"');
       zip.pipe(res);
-      for(let type in data) {
+      /*for(let type in data) {
           zip.append(data[type], {name: req.body.name + '.' + type});
-      }
+      }*/
+      zip.append(data['java'], {name: req.body.name + '.' + 'java'});
+      zip.append(data['xmlConfig'], {name: 'hibernate.cfg' + '.' + 'xml'});
+      zip.append(data['xmlCode'], {name: 'diagram.hbm' + '.' + 'xml'});
+      zip.append(data['javaMain'], {name: 'StoreData' + '.' + 'java'});
+      zip.append(data['sqlDatabase'], {name: 'sqlDatabase' + '.' + 'sql'});
+
       zip.append(req.body.zip, {name: req.body.name + '.json'});
       zip.finalize();
     }

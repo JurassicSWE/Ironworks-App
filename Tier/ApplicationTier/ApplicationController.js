@@ -17,6 +17,7 @@ const archiver = require('archiver');
 
 let JavaGenerator = require('./generators/javaGenerator.js');
 let XMLGenerator = require('./generators/xmlGenerator.js');
+let sqlGenerator = require('./generators/sqlGenerator.js')
 
 module.exports = class ApplicationController {
 
@@ -24,17 +25,24 @@ module.exports = class ApplicationController {
         this.rawData = 0;
         this.java = new JavaGenerator();
         this.xml = new XMLGenerator();
+        this.sql = new sqlGenerator();
     }
 
     codeGenerator(data) {
       //console.log(data);
 
       let javaCode = this.java.generate(data);
-      let xmlCode = this.xml.generate(data);
+      let xmlConfig = this.xml.generateConfig(data);
+      let xmlCode = this.xml.generateCode(data);
+      let javaMain = this.java.generateMain(data);
+      let sqlDatabase = this.sql.generate(data);
 
       return {
           'java': javaCode,
-          'xml': xmlCode,
+          'xmlConfig': xmlConfig,
+          'xmlCode': xmlCode,
+          'javaMain': javaMain,
+          'sqlDatabase': sqlDatabase,
       };
     }
 

@@ -260,10 +260,10 @@ App.navDrop = App.Editor.extend({
                     '<span class="w3-large">Type: </span>'+
                       '<select class="type">'+
                         '<option value="String">String</option>'+
-                        '<option value="int">int</option>'+
-                        '<option value="double">double</option>'+
-                        '<option value="data">data</option>'+
-                        '<option value="bool">bool</option>'+
+                        '<option value="Integer">Integer</option>'+
+                        '<option value="Double">Double</option>'+
+                        '<option value="Data">Data</option>'+
+                        '<option value="Boolean">Boolean</option>'+
                       '</select>'+
                     '</div>'+
                     '<div class="w3-bar-item">'+
