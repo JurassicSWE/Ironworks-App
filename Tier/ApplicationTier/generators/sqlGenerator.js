@@ -10,7 +10,8 @@ module.exports = class sqlGenerator {
 
         for (let i = 0; i < data.length; i++) {
             let entity = data[i];
-
+            
+            this.code += ('DROP TABLE IF EXISTS '+ entity.name +' ;')
             this.code += ('CREATE TABLE ' + entity.name + '( \n');
 
             if(entity.attr.length > 0) {
