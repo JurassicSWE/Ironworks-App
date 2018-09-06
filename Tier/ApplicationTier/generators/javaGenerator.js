@@ -15,7 +15,7 @@ module.exports = class JavaGenerator {
 
     constructor() {
       this.code = '';
-      this.metodi = '';
+      this.metodi = ''; 
     }
 
     generate(data) {
@@ -24,7 +24,7 @@ module.exports = class JavaGenerator {
           //this.code += ('package com.javax.persistence;\n\n');
 		  this.code += ('package com.jurassicswe.ironworks;\n\n');
           //this.code += ('import javax.xml.crypto.Data;\n\n');
-		  
+
 		  this.code += ('import java.io.Serializable;\n');
 		  this.code += ('import javax.persistence.*;\n\n');
 		  /*
@@ -107,7 +107,7 @@ module.exports = class JavaGenerator {
           this.code += ('import org.hibernate.SessionFactory;\n');
           this.code += ('import org.hibernate.Transaction;\n');
           this.code += ('import org.hibernate.cfg.Configuration;\n\n');
-		  
+
           this.code += ('public class StoreData {\n\tpublic static void main(String[] args) {\n');
           this.code += ('\n\t\tConfiguration cfg=new Configuration(); \n');
           this.code += ('\t\tcfg.configure("hibernate.cfg.xml");\n');

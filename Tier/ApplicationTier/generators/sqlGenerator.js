@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = class sqlGenerator {
   constructor() {
@@ -8,14 +8,16 @@ module.exports = class sqlGenerator {
   generate(data) {
       if(data.length > 0) {
 
+
         for (let i = 0; i < data.length; i++) {
             let entity = data[i];
-            
-            this.code += ('DROP TABLE IF EXISTS '+ entity.name +' ;')
+
+            this.code += ('DROP TABLE IF EXISTS '+ entity.name +';\n');
+
             this.code += ('CREATE TABLE ' + entity.name + '( \n');
 
             if(entity.attr.length > 0) {
-
+              let pk = false;
               for(let i = 0; i < entity.attr.length; i++) {
                   let attribute = entity.attr[i];
                   this.newField(
@@ -23,16 +25,19 @@ module.exports = class sqlGenerator {
                       attribute.type,
                       attribute.primaryKey,
                   );
+                  if(attribute.primaryKey === 'true')
+                    pk = true;
                   if( i === entity.attr.length-1)
                     this.code +=('\n');
                     else {
                       this.code +=(',\n');
                     }
-
               }
+              if(!pk)
+                this.code += ('id INT AUTO_INCREMENT PRIMARY KEY \n');
             }
             else {
-              this.code += ('INT id AUTO_INCREMENT PRIMARY KEY \n');
+              this.code += ('id INT AUTO_INCREMENT PRIMARY KEY \n');
             }
             this.code += (')\n\n');
         }
