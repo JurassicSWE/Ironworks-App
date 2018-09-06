@@ -54,7 +54,6 @@ module.exports = class sqlGenerator {
 
   newField(name, type,  primaryKey) {
 
-
       this.code += (name + ' ');
       if(type === 'String')
       this.code += ('VARCHAR(30) ');
@@ -69,8 +68,6 @@ module.exports = class sqlGenerator {
       if(primaryKey === 'true'){
           this.code += (' PRIMARY KEY');
       }
-
-
 }
 
 
